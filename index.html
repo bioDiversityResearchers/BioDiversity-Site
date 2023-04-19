@@ -20,7 +20,7 @@
 
         <link href="css/bootstrap-icons.css" rel="stylesheet">
 
-        <link href="css/templatemo-tiya-golf-club.css" rel="stylesheet">
+        <link href="css/stylesheet.css" rel="stylesheet">
         
     </head>
     
@@ -142,16 +142,16 @@
                         <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0 mb-md-0">
                             <div class="member-block">
                                 <div class="member-block-image-wrap">
-                                    <img src="images/members/portrait-young-handsome-businessman-wearing-suit-standing-with-crossed-arms-with-isolated-studio-white-background.jpg" class="member-block-image img-fluid" alt="">
+                                    <img src="images/members/zy.png" class="member-block-image img-fluid" alt="">
 
                                     <ul class="social-icon">
                                         <li class="social-icon-item">
-                                            <a href="#" class="social-icon-link bi-twitter"></a>
+                                            <a href="#" class="social-icon-link bi-linkedin"></a>
                                         </li>
-
+                                    <!--
                                         <li class="social-icon-item">
                                             <a href="#" class="social-icon-link bi-whatsapp"></a>
-                                        </li>
+                                        </li>-->
                                     </ul>
                                 </div>
 
@@ -166,15 +166,17 @@
                         <div class="col-lg-3 col-md-6 col-12">
                             <div class="member-block">
                                 <div class="member-block-image-wrap">
-                                    <img src="images/members/successful-asian-lady-boss-red-blazer-holding-clipboard-with-documens-pen-working-looking-happy-white-background.jpg" class="member-block-image img-fluid" alt="">
+                                    <img src="images/members/char.jpg" class="member-block-image img-fluid" alt="">
 
                                     <ul class="social-icon">
                                         <li class="social-icon-item">
                                             <a href="#" class="social-icon-link bi-linkedin"></a>
                                         </li>
+                                        <!--
                                         <li class="social-icon-item">
                                             <a href="#" class="social-icon-link bi-twitter"></a>
-                                        </li>
+                                        </li>-->
+                                        
                                     </ul>
                                 </div>
 
@@ -203,15 +205,18 @@
 
                                 <p>Receive weekly updates of our research pages!</p>
 
-                                <form action="google.com" method="get" class="custom-form mt-lg-4 mt-2" role="form">
+                                <form name="submit-to-google-sheet" class="custom-form mt-lg-4 mt-2" role="form">
                                     <div class="input-group input-group-lg">
                                         <span class="input-group-text bi-envelope" id="basic-addon1"></span>
 
-                                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required="">
+                                        <input type="email" name="Email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required="">
 
-                                        <button type="submit" class="form-control">Subscribe</button>
+                                        <button type="submit" id="submitButton" class="form-control"> Subscribe </button> 
                                     </div>
+                                    
+
                                 </form>
+
                             </div>
                         </div>
 
@@ -227,35 +232,35 @@
                     <div class="row">
 
                         <div class="col-lg-5 col-12">
-                            <form action="https://formsubmit.co/your@email.com" method="post" class="custom-form contact-form" role="form" onsubmit="runCode(event)">
+                            <form name ="Contributions" method="post" class="custom-form contact-form" role="form" onsubmit="runCode(event)">
                                 <h2 class="mb-4 pb-2">Contribute!</h2>
                                 <p> By contributing, you will be recognized for your research. By contributing you agree that your name will be displayed!</p>
 
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-12">
                                         <div class="form-floating">
-                                            <input type="text" name="full-name" id="full-name" class="form-control" placeholder="Full Name" required="">
+                                            <input type="text" name="Name" id="full-name" class="form-control" placeholder="Full Name" required="">
                                             
                                             <label for="floatingInput">Full Name</label>
                                         </div>
                                     </div>
-
+                                    <!--
                                     <div class="col-lg-6 col-md-6 col-12"> 
                                         <div class="form-floating">
                                             <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Email address" required="">
                                             
                                             <label for="floatingInput">Email address</label>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="col-lg-12 col-12">
                                         <div class="form-floating">
-                                            <textarea class="form-control" id="message" name="message" placeholder="Describe message here"></textarea>
+                                            <textarea class="form-control" id="Content" name="Content" placeholder="Describe message here"></textarea>
                                             
-                                            <label for="floatingTextarea">A link to your essay(s) here!</label>
+                                            <label for="floatingTextarea">A link to your essay(s) here! </label>
                                         </div>
 
-                                        <button type="submit" class="form-control">Submit Form</button>
+                                        <button type="submit" id="contributeButton"class="form-control">Submit Form</button>
                                     </div>
                                 </div>
                             </form>
@@ -330,6 +335,51 @@
 
 
         <!-- JAVASCRIPT FILES -->
+
+        <!-- NEWSLETTER SUBSCRIPTION CODE -->
+        <script>
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbydkXHeW8TqL3uUQ1j-xf5O9se0Je24H3d4TvS4gh9_ZsEMsBbiaYYEnEoxUkg7_TqROA/exec'
+            const form = document.forms['submit-to-google-sheet']
+            const msg = document.getElementById("submitButton")
+          
+            form.addEventListener('submit', e => {
+              e.preventDefault()
+              msg.innerText = "......"
+              fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                .then(response =>{ 
+                    msg.innerText = "Success!"
+                    console.log('Success!', response)
+                    setTimeout(function(){ 
+                        msg.innerText = "Subscribe"
+                    },5000) 
+            })
+                .catch(error => console.error('Error!', error.message))
+            })
+          </script>
+
+<script>
+    const scriptURL_2 = 'https://script.google.com/macros/s/AKfycbxLFKXEV9BL8RjuEaeWqVPTl1-q2sbcZp3Qgx0YoRQbyzUCXbzPuT0GHsXTnqN0ODeN/exec'
+    const form_2 = document.forms['Contributions']
+    const msg_2 = document.getElementById("contributeButton")
+
+    form_2.addEventListener('submit', e => {
+    msg_2.innerText = "..................."
+      e.preventDefault()
+      fetch(scriptURL_2, { method: 'POST', body: new FormData(form_2)})
+        .then(response => {
+            msg_2.innterText = "Success!"
+            console.log('Success!', response)
+            setTimeout(function(){ 
+            msg_2.innerText = "Submit Form"
+                    },5000) 
+        
+    })
+
+        .catch(error => console.error('Error!', error.message))
+    })
+  </script>
+
+
         <script src="js/jquery.min.js"></script>
         <script src="js/bootstrap.bundle.min.js"></script>
         <script src="js/jquery.sticky.js"></script>
